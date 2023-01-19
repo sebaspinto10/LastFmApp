@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.lastfmapp.core.Result
 import com.example.lastfmapp.domain.ArtistRepository
 import kotlinx.coroutines.Dispatchers
-import java.lang.Exception
 
 class ArtistViewModel(private val repo: ArtistRepository) : ViewModel() {
 
@@ -24,9 +23,21 @@ class ArtistViewModel(private val repo: ArtistRepository) : ViewModel() {
         }
     }
 
+    fun getTop5Tracks(mbid: String) = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
+        emit(Result.Loading())
+
+        kotlin.runCatching {
+            repo.getTop5Tracks(mbid)
+        }.onSuccess { listTrack ->
+            emit(Result.Success(listTrack))
+        }.onFailure { throwable ->
+            emit(Result.Failure(Exception(throwable.message)))
+        }
+    }
+
 }
 
-class ArtistViewModelFactory(private val repo: ArtistRepository): ViewModelProvider.Factory {
+class ArtistViewModelFactory(private val repo: ArtistRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(ArtistRepository::class.java).newInstance(repo)
     }

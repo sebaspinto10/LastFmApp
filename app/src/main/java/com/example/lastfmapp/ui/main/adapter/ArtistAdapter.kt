@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lastfmapp.core.BaseViewHolder
@@ -13,13 +14,29 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 
-class ArtistAdapter(private val artistList: List<Artist>) :
+class ArtistAdapter(
+    private val artistList: List<Artist>,
+    onArtistClickListener: OnArtistClickListener
+) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
+
+    private var artistClickListener: OnArtistClickListener? = null
+
+    init {
+        artistClickListener = onArtistClickListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val itemBinding =
             ArtistItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ArtistViewHolder(itemBinding, parent.context)
+        val holder = ArtistViewHolder(itemBinding, parent.context)
+
+        itemBinding.root.setOnClickListener {
+            val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+                ?: return@setOnClickListener
+            artistClickListener?.onArtistClick(artistList[position])
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = artistList.size
@@ -51,4 +68,8 @@ class ArtistAdapter(private val artistList: List<Artist>) :
         }
 
     }
+}
+
+interface OnArtistClickListener {
+    fun onArtistClick(artist: Artist)
 }

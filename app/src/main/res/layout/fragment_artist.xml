@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.main.ArtistFragment">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="The top Colombian artists"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/progress_bar"
@@ -26,4 +37,4 @@
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager" />
 
-</FrameLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

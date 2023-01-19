@@ -9,5 +9,18 @@
         android:id="@+id/artistFragment"
         android:name="com.example.lastfmapp.ui.main.ArtistFragment"
         android:label="fragment_artist"
-        tools:layout="@layout/fragment_artist" />
+        tools:layout="@layout/fragment_artist" >
+        <action
+            android:id="@+id/action_artistFragment_to_trackFragment"
+            app:destination="@id/trackFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackFragment"
+        android:name="com.example.lastfmapp.ui.track.TrackFragment"
+        android:label="fragment_track"
+        tools:layout="@layout/fragment_track" >
+        <argument
+            android:name="mbid"
+            app:argType="string" />
+    </fragment>
 </navigation>

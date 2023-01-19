@@ -3,6 +3,7 @@ package com.example.lastfmapp.domain
 import com.example.lastfmapp.application.AppConstants
 import com.example.lastfmapp.data.model.ArtistList
 import com.example.lastfmapp.data.model.TopArtist
+import com.example.lastfmapp.data.model.TopTracks
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,6 +19,15 @@ interface WebService {
         @Query("api_key") api_key: String,
         @Query("format") format: String
     ): TopArtist
+
+    @GET(".")
+    suspend fun getTopTracks(
+        @Query("method") method: String,
+        @Query("mbid") mbid: String,
+        @Query("limit ") limit: String,
+        @Query("api_key") api_key: String,
+        @Query("format") format: String
+    ) : TopTracks
 
 }
 

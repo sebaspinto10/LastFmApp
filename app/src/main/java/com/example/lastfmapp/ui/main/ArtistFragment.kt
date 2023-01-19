@@ -2,27 +2,27 @@ package com.example.lastfmapp.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.lastfmapp.R
 import com.example.lastfmapp.core.Result
 import com.example.lastfmapp.core.hide
 import com.example.lastfmapp.core.show
+import com.example.lastfmapp.data.model.Artist
 import com.example.lastfmapp.data.remote.RemoteArtistDataSource
 import com.example.lastfmapp.databinding.FragmentArtistBinding
-import com.example.lastfmapp.domain.ArtistRepository
 import com.example.lastfmapp.domain.ArtistRepositoryImpl
 import com.example.lastfmapp.domain.RetrofitClient
 import com.example.lastfmapp.presentation.ArtistViewModel
 import com.example.lastfmapp.presentation.ArtistViewModelFactory
 import com.example.lastfmapp.ui.main.adapter.ArtistAdapter
+import com.example.lastfmapp.ui.main.adapter.OnArtistClickListener
 
 
-class ArtistFragment : Fragment(R.layout.fragment_artist) {
+class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener {
 
     private lateinit var binding: FragmentArtistBinding
 
@@ -51,8 +51,9 @@ class ArtistFragment : Fragment(R.layout.fragment_artist) {
                             "Ocurrio un erro",
                             Toast.LENGTH_SHORT
                         ).show()
+                        return@observe
                     }
-                    binding.rvArtist.adapter = ArtistAdapter(result.data.topartists.artist)
+                    binding.rvArtist.adapter = ArtistAdapter(result.data.topartists.artist, this)
                 }
                 is Result.Failure -> {
                     binding.progressBar.hide()
@@ -65,5 +66,11 @@ class ArtistFragment : Fragment(R.layout.fragment_artist) {
                 }
             }
         }
+    }
+
+    override fun onArtistClick(artist: Artist) {
+        val action = ArtistFragmentDirections.actionArtistFragmentToTrackFragment(artist.mbid)
+        findNavController().navigate(action)
+        Log.d("Artist", "onArtistClick: $artist")
     }
 }
