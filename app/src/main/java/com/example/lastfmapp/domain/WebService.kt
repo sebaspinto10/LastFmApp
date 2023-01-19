@@ -1,7 +1,6 @@
 package com.example.lastfmapp.domain
 
 import com.example.lastfmapp.application.AppConstants
-import com.example.lastfmapp.data.model.ArtistList
 import com.example.lastfmapp.data.model.TopArtist
 import com.example.lastfmapp.data.model.TopTracks
 import com.google.gson.GsonBuilder
@@ -17,8 +16,9 @@ interface WebService {
         @Query("method") method: String,
         @Query("country") country: String,
         @Query("api_key") api_key: String,
-        @Query("format") format: String
-    ): TopArtist
+        @Query("format") format: String,
+        @Query("limit") limit: String
+        ): TopArtist
 
     @GET(".")
     suspend fun getTopTracks(

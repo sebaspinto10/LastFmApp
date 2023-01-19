@@ -5,6 +5,6 @@ import com.example.lastfmapp.data.model.TopTracks
 
 interface ArtistRepository {
 
-    suspend fun getTopArtists(): TopArtist
+    suspend fun getTop10Artists(): TopArtist
     suspend fun getTop5Tracks(mbid: String): TopTracks
 }

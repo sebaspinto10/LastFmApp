@@ -36,7 +36,7 @@ class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArtistBinding.bind(view)
 
-        viewModel.getTopArtists().observe(viewLifecycleOwner) { result ->
+        viewModel.getTop10Artists().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
                     binding.progressBar.show()

@@ -10,12 +10,12 @@ import kotlinx.coroutines.Dispatchers
 
 class ArtistViewModel(private val repo: ArtistRepository) : ViewModel() {
 
-    fun getTopArtists() = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
+    fun getTop10Artists() = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
 
         emit(Result.Loading())
 
         kotlin.runCatching {
-            repo.getTopArtists()
+            repo.getTop10Artists()
         }.onSuccess { topArtist ->
             emit(Result.Success(topArtist))
         }.onFailure { throwable ->
