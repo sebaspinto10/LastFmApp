@@ -24,7 +24,7 @@ interface WebService {
     suspend fun getTopTracks(
         @Query("method") method: String,
         @Query("mbid") mbid: String,
-        @Query("limit ") limit: String,
+        @Query("limit") limit: String,
         @Query("api_key") api_key: String,
         @Query("format") format: String
     ) : TopTracks

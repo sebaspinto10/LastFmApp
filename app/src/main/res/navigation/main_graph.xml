@@ -22,5 +22,11 @@
         <argument
             android:name="mbid"
             app:argType="string" />
+        <argument
+            android:name="urlPicture"
+            app:argType="string" />
+        <argument
+            android:name="artistName"
+            app:argType="string" />
     </fragment>
 </navigation>

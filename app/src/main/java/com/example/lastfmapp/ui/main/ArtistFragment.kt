@@ -48,7 +48,7 @@ class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener
                     if (result.data.topartists.artist.isEmpty()) {
                         Toast.makeText(
                             requireContext(),
-                            "Ocurrio un erro",
+                            "Ocurrio un error",
                             Toast.LENGTH_SHORT
                         ).show()
                         return@observe
@@ -69,7 +69,7 @@ class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener
     }
 
     override fun onArtistClick(artist: Artist) {
-        val action = ArtistFragmentDirections.actionArtistFragmentToTrackFragment(artist.mbid)
+        val action = ArtistFragmentDirections.actionArtistFragmentToTrackFragment(artist.mbid, artist.image[2].textval, artist.name)
         findNavController().navigate(action)
         Log.d("Artist", "onArtistClick: $artist")
     }
