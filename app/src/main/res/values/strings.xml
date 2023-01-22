@@ -2,4 +2,7 @@
     <string name="app_name">LastFmApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_artist_title">The top 10 Colombian artists</string>
+    <string name="error_info">OOPS! An error has occurred, please try again</string>
+    <string name="reload">Reload</string>
 </resources>

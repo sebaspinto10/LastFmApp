@@ -38,12 +38,30 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
 
         showArtistInfo()
         goToArtistView()
+        reload()
+        fetchTracks()
 
+    }
 
+    private fun showArtistInfo() {
+        Glide.with(requireContext()).load(args.urlPicture).centerCrop().into(binding.imgBackground)
+        binding.collapsingToolbar.title = args.artistName
+
+    }
+
+    private fun reload() {
+        binding.errorViewTrack.btnReload.setOnClickListener {
+            fetchTracks()
+        }
+    }
+
+    private fun fetchTracks() {
         args.mbid.let {
             viewModel.getTop5Tracks(it).observe(viewLifecycleOwner) { result ->
                 when(result) {
                     is Result.Loading -> {
+                        binding.errorViewTrack.root.hide()
+                        binding.rvTrack.show()
                         binding.containerItemViewLoading.show()
                         Log.d("LiveData", "TrackFragment: Loading..")
                     }
@@ -53,27 +71,24 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
                         if (result.data.toptracks.track.isEmpty()) {
                             Toast.makeText(
                                 requireContext(),
-                                "Ocurrio un error",
+                                "An error occurred",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            binding.rvTrack.hide()
+                            binding.errorViewTrack.root.show()
                             return@observe
                         }
                         binding.rvTrack.adapter = TrackAdapter(result.data.toptracks.track)
                     }
                     is Result.Failure -> {
                         binding.containerItemViewLoading.hide()
+                        binding.rvTrack.hide()
+                        binding.errorViewTrack.root.show()
                         Log.d("LiveData", "TrackFragment Error: ${result.exception}")
                     }
                 }
             }
         }
-
-    }
-
-    private fun showArtistInfo() {
-        Glide.with(requireContext()).load(args.urlPicture).centerCrop().into(binding.imgBackground)
-        binding.collapsingToolbar.title = args.artistName
-
     }
 
     private fun goToArtistView() {

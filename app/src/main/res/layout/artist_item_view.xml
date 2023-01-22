@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    app:rippleColor="@color/gray">
 
     <TextView
         android:id="@+id/tv_number_top"
@@ -55,7 +57,7 @@
         android:id="@+id/tv_listeners"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#B4B0B0"
+        android:textColor="@color/gray"
         android:textSize="12sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"

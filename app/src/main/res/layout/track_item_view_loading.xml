@@ -6,10 +6,10 @@
     android:layout_height="wrap_content">
 
     <View
-        android:id="@+id/tv_number_top"
+        android:id="@+id/view_number_top"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:background="#dddddd"
+        android:background="@color/gray_loading"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:id="@+id/track_picture"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="#dddddd"
+        android:background="@color/gray_loading"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,26 +35,25 @@
         />
 
     <View
-        android:id="@+id/tv_track_name"
+        android:id="@+id/view_track_name"
         android:layout_width="0dp"
         android:layout_height="16dp"
         android:layout_marginHorizontal="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_listeners"
+        app:layout_constraintBottom_toTopOf="@+id/view_listeners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/track_picture"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
-        android:background="#dddddd"/>
+        android:background="@color/gray_loading"/>
 
     <View
-        android:id="@+id/tv_listeners"
+        android:id="@+id/view_listeners"
         android:layout_width="50dp"
         android:layout_height="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_track_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_track_name"
+        app:layout_constraintStart_toStartOf="@+id/view_track_name"
+        app:layout_constraintTop_toBottomOf="@+id/view_track_name"
         app:layout_constraintVertical_bias="0.5"
-        android:background="#dddddd"
-        tools:text="5200568 listeners" />
+        android:background="@color/gray_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

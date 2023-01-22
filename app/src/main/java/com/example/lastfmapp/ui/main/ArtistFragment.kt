@@ -36,9 +36,22 @@ class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArtistBinding.bind(view)
 
+        reload()
+        fetchArtists()
+    }
+
+    private fun reload() {
+        binding.errorViewArtist.btnReload.setOnClickListener {
+            fetchArtists()
+        }
+    }
+
+    private fun fetchArtists() {
         viewModel.getTop10Artists().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
+                    binding.errorViewArtist.root.hide()
+                    binding.nestArtist.show()
                     binding.progressBar.show()
                     Log.d("LiveData Artist", "Loading...")
                 }
@@ -48,9 +61,11 @@ class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener
                     if (result.data.topartists.artist.isEmpty()) {
                         Toast.makeText(
                             requireContext(),
-                            "Ocurrio un error",
+                            "An error occurred",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding.nestArtist.hide()
+                        binding.errorViewArtist.root.show()
                         return@observe
                     }
                     binding.rvArtist.adapter = ArtistAdapter(result.data.topartists.artist, this)
@@ -60,16 +75,22 @@ class ArtistFragment : Fragment(R.layout.fragment_artist), OnArtistClickListener
                     Log.d("LiveData Artist", "Error: ${result.exception}")
                     Toast.makeText(
                         requireContext(),
-                        "Ocurrio un erro: ${result.exception}",
+                        "An error occurred: ${result.exception}",
                         Toast.LENGTH_SHORT
                     ).show()
+                    binding.nestArtist.hide()
+                    binding.errorViewArtist.root.show()
                 }
             }
         }
     }
 
     override fun onArtistClick(artist: Artist) {
-        val action = ArtistFragmentDirections.actionArtistFragmentToTrackFragment(artist.mbid, artist.image[2].textval, artist.name)
+        val action = ArtistFragmentDirections.actionArtistFragmentToTrackFragment(
+            artist.mbid,
+            artist.image[2].textval,
+            artist.name
+        )
         findNavController().navigate(action)
         Log.d("Artist", "onArtistClick: $artist")
     }
